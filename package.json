@@ -7,18 +7,21 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
+    "migrate": "prisma migrate dev",
     "serve": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^4.10.1",
     "express": "^4.18.2",
     "node": "^19.6.0"
   },
   "devDependencies": {
     "eslint": "^8.34.0",
     "eslint-plugin-react": "^7.32.2",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "prisma": "^4.10.1"
   }
 }
