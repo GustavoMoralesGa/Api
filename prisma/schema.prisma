@@ -11,13 +11,13 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  email String @unique
-  name String?
-  lastName String
-  NationalId String? @unique
-  password String
-  role Role @default(USER)
+  id          Int     @id @default(autoincrement())
+  email       String  @unique
+  name        String?
+  lastName    String?
+  NationalId  String? @unique
+  password    String
+  role        Role    @default(USER)
 }
 
 enum Role {
