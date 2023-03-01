@@ -35,7 +35,7 @@ SELECT * FROM products
 
 INSERT INTO "users" 
 values  (1, 'Franco', 'Vargas', '11111111-1', 'test@test.cl', '12345', 'admin'),
-      | (2, 'Gustavo', 'Morales', '2222222-2', 'test@test2,cl', '23456', 'usuario'),
+        (2, 'Gustavo', 'Morales', '2222222-2', 'test@test2,cl', '23456', 'usuario'),
         (3, 'Jorge', 'Molina', '3333333-3', 'test@test3.cl', '34567', 'admin');
 
 INSERT INTO "products"
