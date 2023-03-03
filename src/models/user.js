@@ -36,3 +36,12 @@ export const getUser = async (email) => {
   delete user['password'];
   return user
 }
+
+export const deleteUser = async (id) => {
+  await client.user.delete({
+    where: {
+      id
+    },
+  });
+  console.log('User deleted', id)
+}
