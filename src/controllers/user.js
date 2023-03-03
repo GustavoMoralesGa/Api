@@ -1,4 +1,4 @@
-import { createUser as createUserModel } from "../models/user.js";
+import { createUser as createUserModel, deleteUser } from "../models/user.js";
 import bcrypt from 'bcryptjs';
 
 export const createUser = async (req, res) => {
@@ -12,3 +12,13 @@ export const createUser = async (req, res) => {
     res.status(500).send(e)
   }
 };
+
+export const deleteteUser = async (req, res) => {
+  try {
+    const userId = parseInt(req.params.userId);
+    await deleteUser(userId)
+    res.status(204).send();
+  } catch (e) {
+    res.status(500).send(e)
+  }
+}
