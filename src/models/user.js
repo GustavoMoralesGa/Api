@@ -14,6 +14,7 @@ export const getUserPassword = async (email) => {
   return userPass;
 };
 
+
 export const createUser = async (userData) => {
   const userCreated = await client.user.create({
     data: userData
@@ -25,14 +26,21 @@ export const getAllUsers = async () => {
   return await client.user.findMany();
 };
 
-export const getUser = async (id) => {
-  const findUser = await client.user.findFirst({
+export const getUser = async (email) => {
+  const user = await client.user.findUniqueOrThrow({
     where: {
-      id,
+      email,
     },
-    orderBy: {
-      id: 'desc'
-    }
   })
-  return findUser
+  delete user['password'];
+  return user
+}
+
+export const deleteUser = async (id) => {
+  await client.user.delete({
+    where: {
+      id
+    },
+  });
+  console.log('User deleted', id)
 }
