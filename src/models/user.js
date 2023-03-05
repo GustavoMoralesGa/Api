@@ -32,7 +32,6 @@ export const getUser = async (email) => {
       email,
     },
   })
-  console.log(user)
   delete user['password'];
   return user
 }

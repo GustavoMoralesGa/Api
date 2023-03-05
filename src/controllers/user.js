@@ -15,9 +15,14 @@ export const createUser = async (req, res) => {
 
 export const deleteteUser = async (req, res) => {
   try {
-    const userId = parseInt(req.params.userId);
-    await deleteUser(userId)
-    res.status(204).send();
+    const { user } = req;
+    if (user.role === 'ADMIN') {
+      const userId = parseInt(req.params.userId);
+      await deleteUser(userId)
+      res.status(204).send();
+    } else {
+      res.status(403).send({ error: 'Unauthorized' });
+    }
   } catch (e) {
     res.status(500).send(e)
   }

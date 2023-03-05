@@ -9,8 +9,10 @@ export const validateJwt = async (req, res, next) => {
     const authHeader = req.header('Authorization');
     const token = tokenRegex.exec(authHeader)[1];
     jwt.verify(token, JWT_SECRET);
-    req.email = jwt.decode(token).email
-    next()
+    const decodedToken = jwt.decode(token);
+    req.user = decodedToken.user;
+    console.log(req.user);
+    next();
   } catch (e) {
     res.status(e.code || 503).send(e)
   }
