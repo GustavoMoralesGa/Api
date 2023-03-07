@@ -44,3 +44,15 @@ export const deleteUser = async (id) => {
   });
   console.log('User deleted', id)
 }
+
+export const updateUser = async (mail) => {
+  await client.user.update({
+    where: {
+      mail
+    }, data: {
+      name: "",
+      lastName: "",
+      password: ""
+    }
+  })
+}
