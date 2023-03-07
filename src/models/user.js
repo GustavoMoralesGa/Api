@@ -23,8 +23,20 @@ export const createUser = async (userData) => {
 };
 
 export const getAllUsers = async () => {
-  return await client.user.findMany();
+  return await client.user.findMany({
+    where: {
+      role: 'USER'
+    },
+    select: {
+      id: true,
+      name: true,
+      lastName: true,
+      email: true,
+      NationalId: true
+    }
+  });
 };
+
 
 export const getUser = async (email) => {
   const user = await client.user.findUniqueOrThrow({

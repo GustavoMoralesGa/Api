@@ -45,7 +45,7 @@ export const updateUser = async (req, res) => {
   }
 }
 
-export const getAllUsers = async (req, res) => {
+export const getAllUsers = async (_req, res) => {
   try {
     const allUsers = await getAllUsersModel()
     res.status(200).send(allUsers)
