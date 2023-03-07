@@ -1,6 +1,7 @@
 import { createUser as createUserModel, 
          deleteUser as deleteUserModel, 
-         updateUser as updateUserModel } from "../models/user.js";
+         updateUser as updateUserModel,
+         getAllUsers as getAllUsersModel } from "../models/user.js";
 import bcrypt from 'bcryptjs';
 
 export const createUser = async (req, res) => {
@@ -39,6 +40,15 @@ export const updateUser = async (req, res) => {
   try {
     const userPayload = req.body
     await updateUserModel(userPayload)    
+  } catch (e) {
+    res.status(500).send(e)
+  }
+}
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const allUsers = await getAllUsersModel()
+    res.status(200).send(allUsers)
   } catch (e) {
     res.status(500).send(e)
   }
