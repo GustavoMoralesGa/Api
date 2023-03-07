@@ -54,7 +54,7 @@ export const deleteUser = async (id) => {
       id
     },
   });
-  console.log('User deleted', id)
+  console.log('User deleted id:', id)
 }
 
 export const updateUser = async (mail) => {
