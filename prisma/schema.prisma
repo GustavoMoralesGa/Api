@@ -24,3 +24,21 @@ enum Role {
   USER
   ADMIN
 }
+
+model Packages {
+  id            Int   @id @default(autoincrement())
+  title         String
+  review        String
+  totalGroup    String?
+  packageValue  String?
+  personValue   String?
+  date          DateTime @db.Date
+  duration      String?
+  include       String?
+  notInclude    String?
+  meetingPoint  String
+  toWear        String
+  restriccions  String
+  climate       String
+  reschedule    String
+}

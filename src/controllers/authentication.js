@@ -11,7 +11,7 @@ export const loginController = async (req, res) => {
     const isCorrectPassword = bcrypt.compareSync(password, dataBasePassword)
     if (isCorrectPassword ) {
       const user = await getUser(email);
-      const token = jwt.sign({user}, JWT_SECRET, {expiresIn: 600})
+      const token = jwt.sign({user}, JWT_SECRET, {expiresIn: '1day'})
       res.status(200).send(token);
     } else {
       throw new Error('Login Failed');
