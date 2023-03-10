@@ -1,6 +1,8 @@
-import { createUser as createUserModel, 
-         deleteUser as deleteUserModel, 
-         updateUser as updateUserModel } from "../models/user.js";
+import {  createUser as createUserModel, 
+          deleteUser as deleteUserModel, 
+          updateUser as updateUserModel,
+          getAllUsers as getAllUsersModel,
+          getAllUsersData as getAllUsersDataModel } from "../models/user.js";
 import bcrypt from 'bcryptjs';
 
 export const createUser = async (req, res) => {
@@ -37,8 +39,42 @@ export const deleteteUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-    const userPayload = req.body
-    await updateUserModel(userPayload)    
+    const userId = parseInt(req.params.userId, 10);
+    if (req.user.role === 'ADMIN' || req.user.id === userId) {
+      const {
+        name,
+        lastName,
+        password
+      } = req.body;
+      const dataToUpdate = {
+        name,
+        lastName,
+        password,
+      };
+      const updatedUser = await updateUserModel(userId, dataToUpdate);
+      res.status(201).send(updatedUser);
+    } else {
+      res.status(403).send({ error: 'Forbidden '});
+    }
+  } catch (e) {
+    console.log(e)
+    res.status(500).send(e)
+  }
+}
+
+export const getAllUsers = async (_req, res) => {
+  try {
+    const allUsers = await getAllUsersModel()
+    res.status(200).send(allUsers)
+  } catch (e) {
+    res.status(500).send(e)
+  }
+}
+
+export const getAllUsersData = async (_req, res) => {
+  try {
+    const allUserData = await getAllUsersDataModel()
+    res.status(200).send(allUserData)
   } catch (e) {
     res.status(500).send(e)
   }
