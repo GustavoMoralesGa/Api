@@ -14,7 +14,6 @@ export const getUserPassword = async (email) => {
   return userPass;
 };
 
-
 export const createUser = async (userData) => {
   const userCreated = await client.user.create({
     data: userData
@@ -37,6 +36,21 @@ export const getAllUsers = async () => {
   });
 };
 
+export const getAllUsersData = async () => {
+  return await client.user.findMany({
+    select: {
+      id: true,
+      name: true,
+      lastName: true,
+      email: true,
+      NationalId: true,
+      role: true
+    },
+    orderBy: {
+      role: "desc"
+    }
+  })
+}
 
 export const getUser = async (email) => {
   const user = await client.user.findUniqueOrThrow({
@@ -57,14 +71,16 @@ export const deleteUser = async (id) => {
   console.log('User deleted id:', id)
 }
 
-export const updateUser = async (mail) => {
-  await client.user.update({
+export const updateUser = async (id, data) => {
+  const updatedUserData = await client.user.update({
     where: {
-      mail
-    }, data: {
-      name: "",
-      lastName: "",
-      password: ""
+      id
+    }, 
+    data,
+    select: {
+      name: true,
+      lastName: true,
     }
   })
+  return updatedUserData;
 }

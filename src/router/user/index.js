@@ -1,5 +1,5 @@
 import Express from 'express';
-import { createUser, deleteteUser, getAllUsers } from '../../controllers/user.js';
+import { createUser, deleteteUser, getAllUsers, getAllUsersData, updateUser } from '../../controllers/user.js';
 import { loginController } from '../../controllers/authentication.js';
 import { validateJwt } from '../../middleware/validateJwt.js';
 
@@ -10,6 +10,7 @@ userRouter.post('/register', createUser)
 userRouter.post('/login', loginController)
 userRouter.delete('/:userId', validateJwt, deleteteUser)
 userRouter.get('/users', getAllUsers )
-
+userRouter.get('/allUsers', getAllUsersData)
+userRouter.put('/:userId', validateJwt ,updateUser)
 
 export default userRouter;
