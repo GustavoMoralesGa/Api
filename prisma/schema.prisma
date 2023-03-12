@@ -32,11 +32,11 @@ model Packages {
   id              Int   @id @default(autoincrement())
   title           String
   description     String
-  gruopMin        Int
-  grupMax         Int
+  groupMin        Int
+  groupMax         Int
   packageValue    Int
   valuePerPerson  Int
-  duration        DateTime
+  duration        Int
   conditions      String
   locationLat     Decimal?
   locationLong    Decimal?
