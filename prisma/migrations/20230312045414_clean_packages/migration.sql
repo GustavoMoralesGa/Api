@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Packages" ALTER COLUMN "date" SET DATA TYPE TIMESTAMP(3);

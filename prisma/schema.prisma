@@ -13,11 +13,14 @@ datasource db {
 model User {
   id          Int     @id @default(autoincrement())
   email       String  @unique
-  name        String?
+  name        String? 
   lastName    String?
   NationalId  String? @unique
   password    String
   role        Role    @default(USER)
+  schedules   Schedule[]
+  tickets     Ticket[]
+  notes       TicketNotes[]
 }
 
 enum Role {
@@ -26,19 +29,56 @@ enum Role {
 }
 
 model Packages {
-  id            Int   @id @default(autoincrement())
-  title         String
-  review        String
-  totalGroup    String?
-  packageValue  String?
-  personValue   String?
-  date          DateTime @db.Date
-  duration      String?
-  include       String?
-  notInclude    String?
-  meetingPoint  String
-  toWear        String
-  restriccions  String
-  climate       String
-  reschedule    String
+  id              Int   @id @default(autoincrement())
+  title           String
+  description     String
+  gruopMin        Int
+  grupMax         Int
+  packageValue    Int
+  valuePerPerson  Int
+  duration        DateTime
+  conditions      String
+  locationLat     Decimal?
+  locationLong    Decimal?
+}
+
+model Schedule {
+  id              Int  @id @default(autoincrement())
+  date            DateTime
+  locationLat     Decimal?
+  localtionLong   Decimal?
+  rescheduleable  Boolean
+  toWear          String
+  organizer       User? @relation(fields: [organizerId], references: [id])
+  organizerId     Int?
+  tickets         Ticket[]
+}
+
+model Ticket {
+  id              Int @id @default(autoincrement())
+  user            User @relation(fields: [userId], references: [id])
+  userId          Int
+  status          Status
+  schedule        Schedule @relation(fields: [scheduleId], references: [id])
+  scheduleId      Int
+  ticketNotes     TicketNotes[]
+}
+
+model TicketNotes {
+  id            Int @id @default(autoincrement())
+  ticket        Ticket @relation(fields: [ticketId], references: [id])
+  ticketId      Int
+  dateCreated   DateTime
+  dateUpdated   DateTime
+  note          String
+  author        User @relation(fields: [authorId], references: [id])
+  authorId      Int
+}
+
+enum Status {
+  RESERVED
+  PAY_PENDING
+  READY
+  POSPONE
+  FINISHED
 }
