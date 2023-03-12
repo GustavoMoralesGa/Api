@@ -5,7 +5,30 @@ import {  createPackage as createPackageModel,
 
 export const createPackage = async (req, res) => {
   try {
-    const packagePayload = req.body;
+    const {
+      title,
+      description,
+      groupMin,
+      groupMax,
+      packageValue,
+      valuePerPerson,
+      duration,
+      conditions,
+      locationLat,
+      locationLong,
+    }= req.body;
+    const packagePayload = {
+      title,
+      description,
+      groupMin,
+      groupMax,
+      packageValue,
+      valuePerPerson,
+      duration,
+      conditions,
+      locationLat,
+      locationLong,
+    };
     const packageCreated = await createPackageModel(packagePayload)
     res.send(packageCreated)
   } catch (e) {
