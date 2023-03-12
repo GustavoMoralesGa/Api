@@ -8,3 +8,28 @@ export const createPackage = async (packageData) => {
   });
   return packageCreated
 }
+
+export const getAllPackages = async (packageData) => {
+  return await client.packages.findMany({
+    data: packageData
+  })
+}
+
+export const deletePackage = async (id) => {
+  await client.packages.delete({
+    where: {
+      id
+    }
+  })
+  console.log('Package deleted id:', id)
+}
+
+export const updatePackage = async (id, data) => {
+  const updatePackageData = await client.packages.update({
+    where: {
+      id
+    },
+    data
+  })
+  return updatePackageData
+}
