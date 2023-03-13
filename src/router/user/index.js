@@ -9,8 +9,8 @@ const userRouter = new Express();
 userRouter.post('/register', createUser)
 userRouter.post('/login', loginController)
 userRouter.delete('/:userId', validateJwt, deleteteUser)
+userRouter.put('/:userId', validateJwt ,updateUser)
 userRouter.get('/users', getAllUsers )
 userRouter.get('/allUsers', getAllUsersData)
-userRouter.put('/:userId', validateJwt ,updateUser)
 
 export default userRouter;
