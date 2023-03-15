@@ -33,7 +33,7 @@ model Packages {
   title           String
   description     String
   groupMin        Int
-  groupMax         Int
+  groupMax        Int
   packageValue    Int
   valuePerPerson  Int
   duration        Int
@@ -65,14 +65,14 @@ model Ticket {
 }
 
 model TicketNotes {
-  id            Int @id @default(autoincrement())
-  ticket        Ticket @relation(fields: [ticketId], references: [id])
-  ticketId      Int
-  dateCreated   DateTime
-  dateUpdated   DateTime
-  note          String
-  author        User @relation(fields: [authorId], references: [id])
-  authorId      Int
+  id              Int @id @default(autoincrement())
+  ticket          Ticket @relation(fields: [ticketId], references: [id])
+  ticketId        Int
+  dateCreated     DateTime
+  dateUpdated     DateTime
+  note            String
+  author          User @relation(fields: [authorId], references: [id])
+  authorId        Int
 }
 
 enum Status {
