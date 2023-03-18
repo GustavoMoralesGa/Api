@@ -21,7 +21,7 @@ Go to your Base proyect, then create a `.env` file whit the following structure:
 
 ```
 # Prisma
-DATABASE_URL=postgresql://janedoe:mypassword@localhost:5432/mydb
+DATABASE_URL="postgresql://janedoe:mypassword@localhost:5432/turismo_dev?schema=public"
 
 #Jwt access token
 ACCESS_TOKEN_SECRET=""
