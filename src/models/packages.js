@@ -11,7 +11,10 @@ export const createPackage = async (packageData) => {
 
 export const getAllPackages = async (packageData) => {
   return await client.packages.findMany({
-    data: packageData
+    data: packageData,
+    orderBy: {
+      id: "asc"
+    }
   })
 }
 
