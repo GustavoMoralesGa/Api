@@ -40,18 +40,20 @@ model Packages {
   conditions      String
   locationLat     Decimal?
   locationLong    Decimal?
+  active          Boolean? @default(false)
 }
 
 model Schedule {
   id              Int  @id @default(autoincrement())
   date            DateTime
   locationLat     Decimal?
-  localtionLong   Decimal?
-  rescheduleable  Boolean
+  locationLong    Decimal?
+  rescheduleable  Boolean @default(false)
   toWear          String
   organizer       User? @relation(fields: [organizerId], references: [id])
   organizerId     Int?
   tickets         Ticket[]
+  active          Boolean? @default(false)
 }
 
 model Ticket {
