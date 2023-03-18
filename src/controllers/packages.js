@@ -48,14 +48,10 @@ export const getAllPackages = async (_req, res) => {
 
 export const deletePackage = async (req, res) => {
   try {
-    const { user } = req;
-    if (user.role === 'ADMIN') {
-      const packageId = parseInt(req.params.packageId, 10);
-      await deletePackageModel(packageId)
-      res.status(204).send();
-    } else {
-      res.status(403).send({ error: 'Anauthorized' });
-  }} catch (e) {
+    const packageId = parseInt(req.params.packageId, 10);
+    await deletePackageModel(packageId)
+    res.status(204).send();
+  } catch (e) {
     res.status(500).send(e)
   }
 }
@@ -63,13 +59,9 @@ export const deletePackage = async (req, res) => {
 export const updatePackage = async (req, res) => {
   try {
     const packageId = parseInt(req.params.packageId, 10);
-    if (req.user.role === 'ADMIN') {
-      const data = req.body;
-      const updatedPackage = await updatePackageModel(packageId, data)
-      res.status(201).send(updatedPackage); 
-    } else {
-      res.status(403).send({ error: 'Forbidden' })
-    }
+    const data = req.body;
+    const updatedPackage = await updatePackageModel(packageId, data)
+    res.status(201).send(updatedPackage); 
   } catch (e) {
     res.status(500).send(e)
   }
