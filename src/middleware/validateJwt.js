@@ -7,7 +7,6 @@ export const validateJwt = async (req, res, next) => {
   try {
     const authHeader = req.header('Authorization');
     const token = tokenRegex.exec(authHeader);
-    console.log(authHeader, token);
     if (token) {
       const decodedToken = jwt.decode(token[1], JWT_SECRET);
       if (decodedToken) {
