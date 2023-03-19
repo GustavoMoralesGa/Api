@@ -11,8 +11,23 @@ export const createPackage = async (packageData) => {
 
 export const getAllPackages = async (packageData) => {
   return await client.packages.findMany({
-    data: packageData
+    data: packageData,
+    orderBy: {
+      id: "asc"
+    }
   })
+}
+
+export const getPackageById = async (id) => {
+  const getPackage = await client.packages.findFirstOrThrow({
+    where: {
+      id
+    },
+    include: {
+      schedules: true,
+    },
+  })
+  return getPackage;
 }
 
 export const deletePackage = async (id) => {
@@ -31,5 +46,5 @@ export const updatePackage = async (id, data) => {
     },
     data
   })
-  return updatePackageData
+  return updatePackageData;
 }
