@@ -19,14 +19,9 @@ export const createUser = async (req, res) => {
 
 export const deleteteUser = async (req, res) => {
   try {
-    const { user } = req;
-    if (user.role === 'ADMIN') {
       const userId = parseInt(req.params.userId, 10);
       await deleteUserModel(userId)
       res.status(204).send();
-    } else {
-      res.status(403).send({ error: 'Unauthorized' });
-    }
   } catch (e) {
     if (e.code === 'P2025') {
       res.status(404).send({
@@ -44,12 +39,18 @@ export const updateUser = async (req, res) => {
       const {
         name,
         lastName,
-        password
+        password,
+        passwordConfirmation,
       } = req.body;
+      if (password && password !== passwordConfirmation) {
+        req.status(503).send({
+          error: 'password mismatch',
+        })
+      }
       const dataToUpdate = {
         name,
         lastName,
-        password,
+        password: bcrypt.hashSync(password),
       };
       const updatedUser = await updateUserModel(userId, dataToUpdate);
       res.status(201).send(updatedUser);

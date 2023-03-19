@@ -40,25 +40,30 @@ model Packages {
   conditions      String
   locationLat     Decimal?
   locationLong    Decimal?
+  active          Boolean? @default(false)
+  schedules       Schedule[]
 }
 
 model Schedule {
   id              Int  @id @default(autoincrement())
   date            DateTime
   locationLat     Decimal?
-  localtionLong   Decimal?
-  rescheduleable  Boolean
+  locationLong    Decimal?
+  rescheduleable  Boolean @default(false)
   toWear          String
   organizer       User? @relation(fields: [organizerId], references: [id])
   organizerId     Int?
   tickets         Ticket[]
+  active          Boolean? @default(false)
+  package         Packages? @relation(fields: [packageId], references: [id])
+  packageId       Int
 }
 
 model Ticket {
   id              Int @id @default(autoincrement())
   user            User @relation(fields: [userId], references: [id])
   userId          Int
-  status          Status
+  status          Status @default(CREATED)
   schedule        Schedule @relation(fields: [scheduleId], references: [id])
   scheduleId      Int
   ticketNotes     TicketNotes[]
@@ -76,6 +81,7 @@ model TicketNotes {
 }
 
 enum Status {
+  CREATED
   RESERVED
   PAY_PENDING
   READY

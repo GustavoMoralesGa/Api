@@ -18,6 +18,18 @@ export const getAllPackages = async (packageData) => {
   })
 }
 
+export const getPackageById = async (id) => {
+  const getPackage = await client.packages.findFirstOrThrow({
+    where: {
+      id
+    },
+    include: {
+      schedules: true,
+    },
+  })
+  return getPackage;
+}
+
 export const deletePackage = async (id) => {
   await client.packages.delete({
     where: {
@@ -34,5 +46,5 @@ export const updatePackage = async (id, data) => {
     },
     data
   })
-  return updatePackageData
+  return updatePackageData;
 }
