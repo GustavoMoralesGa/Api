@@ -1,4 +1,7 @@
-import { createSchedule as createScheduleModel } from "../models/schedules.js";
+import {  createSchedule as createScheduleModel,
+          getAllSchedule as getAllScheduleModel,
+          deleteSchedule as deleteScheduleModel,
+          updateSchedule as updateScheduleModel } from "../models/schedules.js";
 
 export const createSchedule = async (req, res) => {
   try {
@@ -26,3 +29,32 @@ export const createSchedule = async (req, res) => {
   }
 }
 
+export const getAllSchedule = async (_req, res) => {
+  try {
+    const allScheduleData = await getAllScheduleModel()
+    res.status(200).send(allScheduleData)
+  } catch (e) {
+    res.status(500).send(e)
+  }
+}
+
+export const deleteSchedule = async (req, res) => {
+  try {
+    const scheduleId = parseInt(req.params.scheduleId, 10)
+    await deleteScheduleModel(scheduleId)
+    res.status(204).send();
+  } catch (e) {
+    res.status(500).send(e)
+  } 
+}
+
+export const updateSchedule = async (req, res) => {
+  try {
+    const scheduleId = parseInt(req.params.scheduleId, 10);
+    const data = req.body;
+    const updateSchedule = await updateScheduleModel(scheduleId, data)
+    res.status(201).send(updateSchedule)
+  } catch (e) {
+    res.status(500).send(e)
+  }
+}
