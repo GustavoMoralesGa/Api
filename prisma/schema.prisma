@@ -56,7 +56,7 @@ model Schedule {
   tickets         Ticket[]
   active          Boolean? @default(false)
   package         Packages? @relation(fields: [packageId], references: [id])
-  packageId       Int?
+  packageId       Int
 }
 
 model Ticket {
