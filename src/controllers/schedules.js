@@ -11,15 +11,16 @@ export const createSchedule = async (req, res) => {
       locationLong,
       rescheduleable,
       toWear,
-      organizerId,
-    } = req.body; 
+    } = req.body;
+    const packageId = parseInt(req.params.packageId);
     const schedulePayload = {
       date: new Date(date),
       locationLat,
       locationLong,
       rescheduleable,
       toWear,
-      organizerId,
+      organizerId: req.user.id,
+      packageId,
     }
     const scheduleCreated = await createScheduleModel(schedulePayload)
     res.send(scheduleCreated)
