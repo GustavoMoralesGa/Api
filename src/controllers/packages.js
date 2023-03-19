@@ -1,7 +1,8 @@
 import {  createPackage as createPackageModel,
           getAllPackages as getAllPackagesModel,
           deletePackage as deletePackageModel,
-          updatePackage as updatePackageModel } from "../models/packages.js";
+          updatePackage as updatePackageModel,
+          getPackageById as getPackageByIdModel } from "../models/packages.js";
 
 export const createPackage = async (req, res) => {
   try {
@@ -41,6 +42,16 @@ export const getAllPackages = async (_req, res) => {
   try {
     const allPackageData = await getAllPackagesModel()
     res.status(200).send(allPackageData)
+  } catch (e) {
+    res.status(500).send(e)
+  }
+}
+
+export const getPackageById = async (req, res) => {
+  try {
+    const packageId = parseInt(req.params.packageId, 10);
+    const packageData = await getPackageByIdModel(packageId);
+    res.status(200).send(packageData)
   } catch (e) {
     res.status(500).send(e)
   }
