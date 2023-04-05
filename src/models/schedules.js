@@ -9,14 +9,20 @@ export const createSchedule = async (data) => {
   return scheduleCreated;
 }
 
-export const getAllSchedule = async (Scheduledata) => {
-  return await client.schedule.findMany({
-    data: Scheduledata,
-    orderBy: {
-      id: "asc"
+export const getSchedulesByPackage = async (packageId) => {
+  const schedules = await client.packages.findUniqueOrThrow({
+    where: {
+      id: packageId,
     }
-  })
+  }).schedules()
+  // const schedules = await client.schedule.findMany({
+  //   where: {
+  //     packageId,
+  //   },
+  // })
+  return schedules
 }
+
 
 export const getScheduleById = async (id) => {
   const getSchedule = await client.schedule.findFirstOrThrow({

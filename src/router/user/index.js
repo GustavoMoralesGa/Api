@@ -1,11 +1,11 @@
-import Express from 'express';
+import { Router } from 'express';
 import { createUser, deleteteUser, getAllUsers, getAllUsersData, updateUser } from '../../controllers/user.js';
 import { loginController } from '../../controllers/authentication.js';
 import { validateJwt } from '../../middleware/validateJwt.js';
 import { isAdmin } from '../../middleware/isAdmin.js';
 
 
-const userRouter = new Express();
+const userRouter = Router();
 
 userRouter.post('/register', createUser)
 userRouter.post('/login', loginController)
