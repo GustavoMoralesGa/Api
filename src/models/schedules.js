@@ -14,22 +14,14 @@ export const getSchedulesByPackage = async (packageId) => {
     where: {
       id: packageId,
     }
-  }).schedules()
-  // const schedules = await client.schedule.findMany({
-  //   where: {
-  //     packageId,
-  //   },
-  // })
+  }).schedules({
+    orderBy: {
+      id: "asc"
+    }
+  })
   return schedules
 }
 
-
-export const getScheduleById = async (id) => {
-  const getSchedule = await client.schedule.findFirstOrThrow({
-    id
-  })
-  return getSchedule
-}
 
 export const deleteSchedule = async (id) => {
   await client.schedule.delete({
