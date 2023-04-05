@@ -1,8 +1,9 @@
 import {  createSchedule as createScheduleModel,
-          getAllSchedule as getAllScheduleModel,
+          getSchedulesByPackage as getScheduleByPackageIdModel,
           deleteSchedule as deleteScheduleModel,
           updateSchedule as updateScheduleModel,
           getScheduleById as getScheduleByIdModel } from "../models/schedules.js";
+import { createPackage } from "./packages.js";
 
 export const createSchedule = async (req, res) => {
   try {
@@ -13,7 +14,7 @@ export const createSchedule = async (req, res) => {
       rescheduleable,
       toWear,
     } = req.body;
-    const packageId = parseInt(req.params.packageId);
+    const packageId = parseInt(req.params.packageId, 10)
     const schedulePayload = {
       date: new Date(date),
       locationLat,
@@ -21,7 +22,7 @@ export const createSchedule = async (req, res) => {
       rescheduleable,
       toWear,
       organizerId: req.user.id,
-      packageId,
+      packageId
     }
     const scheduleCreated = await createScheduleModel(schedulePayload)
     res.send(scheduleCreated)
@@ -31,11 +32,13 @@ export const createSchedule = async (req, res) => {
   }
 }
 
-export const getAllSchedule = async (_req, res) => {
+export const getAllSchedule = async (req, res) => {
   try {
-    const allScheduleData = await getAllScheduleModel()
-    console.log(allScheduleData)
+    const packageId = parseInt(req.params.packageId, 10)
+    const allScheduleData = await getScheduleByPackageIdModel(packageId)
+    res.status(200).send(allScheduleData)
   } catch (e) {
+    console.log('Catched?', e)
     res.status(500).send(e)
   }
 }
