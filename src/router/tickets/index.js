@@ -1,8 +1,8 @@
-import Express from "express";
+import { Router } from 'express'
 // import { isAdmin } from "../../middleware/isAdmin.js";
 // import { validateJwt } from "../../middleware/validateJwt.js";
 
-const ticketRoutes = new Express();
+const ticketRoutes = Router();
 
 ticketRoutes.post('/')
 ticketRoutes.get('/:ticketId')
